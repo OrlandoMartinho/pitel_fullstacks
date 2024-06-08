@@ -116,6 +116,19 @@ h1{
     width: 20px;
 
 }
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .loader {
+    width: 200px;
+    height: 200px;
+  }
+  
 .notification-content{
     border-bottom: 2px solid var(--color-primary);
     padding: .6rem 0;

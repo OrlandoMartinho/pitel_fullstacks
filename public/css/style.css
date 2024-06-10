@@ -1,0 +1,352 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+html{
+    font-family: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+:root{
+    --color-primary:#FFDA7F;
+    --color-secondary:#211D1D;
+    --color-text:#fff;
+    --color-gray:#E5E5E5;
+    --border-default:.9rem;
+}
+.logo img{
+    width: 6rem;
+}
+header{
+    padding: 1rem 4rem;
+    z-index: 999999;
+    position: fixed;
+    width: 100%;
+    background-color: var(--color-text);
+}
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+nav ul{
+    display: flex;
+}
+nav ul li {
+    padding: 2rem;
+}
+nav ul li a {
+    color: var(--color-secondary);
+}
+
+
+.btn-header{
+    z-index: -1;
+    padding: 1rem 2rem;
+    color: var(--color-text);
+    background-color: var(--color-primary);
+    border-radius: var(--border-default);
+}
+.hero::before{
+    z-index: -11;
+    content: '';
+    background:url(../assets/img/header-background.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 90rem;
+    height: 80rem;
+    position: absolute;
+    top:-24rem ;
+    right: -50rem;
+}
+.hero{
+    position: relative;
+    padding: 0 6rem;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.information-img{
+    padding-right: 8rem;
+}
+.information-img img{
+    width: 48rem;
+    height: 33rem;
+}
+.information-hero{
+    padding-left: 16rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    font-size: 1.4rem;
+}
+.information-hero h2{
+    font-weight: 100;
+    margin: 2rem 0;
+}
+.information-hero span{
+    color: var(--color-primary);
+}
+.cards{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+}
+.card{
+    margin-top: 2rem;
+    width: 13rem;
+    align-items: center;
+    place-items: center;
+    border-radius: var(--border-default);
+    padding:1rem 1rem;
+    box-shadow: 1px 1px 3px 0px #00000059;
+}
+.card p{
+    text-align: center;
+    padding-top: 1rem;
+    font-size: 1rem;
+}
+.card img{
+    display: block;
+    margin: 0 auto;
+}
+.line{
+    position: absolute;
+    z-index: -111111111;
+    left: 38rem;
+    top: 18rem;
+}
+.line img{
+    width: 30rem;
+}
+
+.about{
+    padding-top: 9rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.about-img{
+    margin-left: -14rem;
+    width: 56rem;
+    height: 54rem;
+}
+.about-img img{
+    width: 100%;
+    height: 100%;
+}
+
+.about-information{
+    width: 40%;
+    font-size: 1.2rem;
+}
+.about-information::after{
+    content: '';
+    z-index: -1111111;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background: url(../assets/img/aboutElipse.png);
+    width: 30rem;
+    height: 30.6rem;
+    right: -16rem;
+}
+.about-content h3{
+    position: relative;
+}
+.about-content p{
+    margin: 2rem 0;
+}
+h3::before{
+    content: '';
+    border-radius: 9999px;
+    z-index: -11111;
+    width: 1rem;
+    height: 1rem;
+    position: absolute;
+    background-color: var(--color-primary);
+    top: -0.1rem;
+    left: -0.3rem;
+}
+.main{
+    padding: 12rem 6rem;
+}
+.main-cards{
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.main h3{
+    margin:4rem 0 ;
+    position: relative;
+}
+.main-card img{
+    width: 17rem;
+}
+.main p{
+    padding: 1rem 0;
+    text-align: center;
+}
+.Reserva{
+    padding: 8rem 0;
+}
+.Reserva h3{
+    margin: 0rem 0rem 6rem 6rem;
+    position: relative;
+}
+.reservas-information{
+    background: url(../assets/img/reservas.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: space-around;
+    width: 100vw;
+    height: 74vh;
+}
+
+.content-reservas{
+    color: var(--color-text);
+    text-align: center;
+}
+.content-reservas img{
+    width: 18rem;
+}
+.reservas-information label{
+    margin: 1rem 0; 
+    color: var(--color-text);
+}
+
+.input-content{
+    padding-left: 8rem;
+    width: 34rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-content input{
+    border: none;
+    outline: none;
+    height: 2.6rem;
+    background-color: var(--color-text);
+    padding: 1rem;
+    border-radius: .9rem;
+}
+.btn{
+    border: none;
+    margin-top: 2rem;
+    padding: 1rem 0;
+    border-radius: .9rem;
+    color: var(--color-text);
+    background-color: var(--color-primary);
+    margin-left: 8rem;
+    width:26rem;
+    cursor: pointer;
+}
+
+.contacts{
+    padding: 0 6rem;   
+    position: relative;
+}
+.contacts h3{
+    position: relative;
+    margin:4rem 0 ;
+}
+
+.contacts-form{
+
+    display: block;
+    margin: 0 auto;
+    box-shadow: 1px 1px 3px 0px #00000059;
+    width: 30rem;
+    padding: 2rem;
+
+}
+.contacts-input{
+    display: flex;
+    flex-direction: column;
+}
+.contacts-input label{
+    margin: 1rem 0;
+}
+.contacts-input input {
+    border-radius: var(--border-default);
+    padding: 1rem;
+    border: 1px solid var(--color-secondary);
+    height: 3rem;
+    outline: none;
+}
+
+.description input{
+    height: 8rem;
+}
+
+.btn-contacts{
+    width: 100%;
+    height: 3rem;
+    border-radius:var(--border-default);
+    margin: 1rem 0;
+    border: none;
+    background-color: var(--color-primary);
+    color: var(--color-text);
+}
+.contacts-form::after{
+    content: '';
+    z-index: -1111111;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background: url(../assets/img/aboutElipse.png);
+    width: 30rem;
+    height: 30.6rem;
+    right: -18rem;
+    top: 12rem;
+}
+footer{
+    margin-top: 8rem;
+    padding: 6rem;
+    width: 100vw;
+    background-color: var(--color-primary);
+}
+
+.footer-information{
+    color: var(--color-text);
+    display: flex;
+    justify-content: space-between;
+}
+
+.links nav ul li a {
+    color: var(--color-text);
+}
+.links nav ul li {
+    padding: 1rem 0;
+}
+.links nav ul{
+    flex-direction: column;
+}
+.links h5{
+    margin-bottom: 1rem;
+}
+.content-footer{
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.desc .desc-tilte span{
+    color: var(--color-secondary);
+}
+.desc-tilte{
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+h5{
+    font-size: 1.4rem;
+    font-weight: 100;
+}

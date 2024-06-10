@@ -149,14 +149,14 @@
     <div class="contacts" id="contact">
         <h3>Contactos</h3>
         <div class="contacts-form">
-            <form action="">
+            <form action="controllers/contactos.php" method="POST">
                 <div class="contacts-input">
                     <label for="contact-nome">Nome:</label>
-                    <input type="text" id="contact-nome" name="contact-nome">
+                    <input type="text" id="contact-nome" name="nome">
                 </div>
                 <div class="contacts-input">
                     <label for="contact-email">Email:</label>
-                    <input type="email" id="contact-email" name="contact-email">
+                    <input type="email" id="contact-email" name="email">
                 </div>
                 <div class="contacts-input description">
                     <label for="mensagem">Mensagem</label>

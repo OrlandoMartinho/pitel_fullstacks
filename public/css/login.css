@@ -91,6 +91,7 @@ form .btn{
     color: var(--color-text);
     height: 4rem;
     cursor: pointer;
+    
 }
 a{
     color: var(--color-text);

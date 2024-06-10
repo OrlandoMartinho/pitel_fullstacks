@@ -27,9 +27,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             <nav>
                 <a href="#" class="logo"><img src="../assets/icon/user.png" alt=""></a>
                 <ul>
-                    <li class="home"><a href="home.html">Home</a></li>
-                    <li class="active-menu"><a href="reservations.html">Reservas</a></li>
-                    <li><a href="contacts.html">Contactos</a></li>
+                    <li class="home"><a href="home.php">Home</a></li>
+                    <li class="active-menu"><a href="reservations.php">Reservas</a></li>
+                    <li><a href="contacts.php">Contactos</a></li>
                     <li><a href="login.html">Sair</a></li>
                 </ul>
             </nav>

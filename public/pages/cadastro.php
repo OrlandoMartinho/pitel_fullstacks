@@ -51,7 +51,6 @@ a:hover {
     <div class="container">
         <h1>Cadastro Realizado com Sucesso!</h1>
         <p>Seu cadastro foi concluído com sucesso.</p>
-        <img src="success_icon.png" alt="Ícone de Sucesso">
         <a href="../index.php">Voltar para a página inicial</a>
     </div>
 </body>

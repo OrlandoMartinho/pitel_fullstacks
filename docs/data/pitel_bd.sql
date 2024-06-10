@@ -7,6 +7,12 @@
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
+CREATE DATABASE `pitel_bd` ;
+
+USE `pitel_bd`;
+
+
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -96,7 +102,7 @@ ALTER TABLE `contatos`
 -- Índices de tabela `notificacoes`
 --
 ALTER TABLE `notificacoes`
-  ADD PRIMARY KEY (`id_notificacao`,`id_usuario`);
+  ADD PRIMARY KEY (`id_notificacao`);
 
 --
 -- Índices de tabela `reservas`

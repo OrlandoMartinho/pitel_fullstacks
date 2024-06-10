@@ -18,26 +18,46 @@ function conectarAoBanco() {
     return new mysqli($servername, $username, $password, $dbname);
 }
 
-// Função para calcular o total de reservas
-function calcularTotalReservas($conn) {
+// Função para obter o total de reservas
+function obterTotalReservas($conn) {
     $sql = "SELECT COUNT(*) as total FROM reservas";
     $result = $conn->query($sql);
     return $result->fetch_assoc()['total'];
 }
 
-// Função para calcular o total de contatos
-function calcularTotalContatos($conn) {
+// Função para obter o total de contatos
+function obterTotalContatos($conn) {
     $sql = "SELECT COUNT(*) as total FROM contatos";
     $result = $conn->query($sql);
     return $result->fetch_assoc()['total'];
 }
 
+// Função para obter todas as notificações
+function obterTodasNotificacoes($conn) {
+    $sql = "SELECT * FROM notificacoes";
+    $result = $conn->query($sql);
+    $notificacoes = [];
+
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $notificacoes[] = $row;
+        }
+    }
+
+    return $notificacoes;
+}
+
 // Conectar ao banco de dados
 $conn = conectarAoBanco();
 
-// Calcular o total de reservas e contatos
-$totalReservas = calcularTotalReservas($conn);
-$totalContatos = calcularTotalContatos($conn);
+// Obter o total de reservas
+$totalReservas = obterTotalReservas($conn);
+
+// Obter o total de contatos
+$totalContatos = obterTotalContatos($conn);
+
+// Obter todas as notificações
+$notificacoes = obterTodasNotificacoes($conn);
 
 // Fechar a conexão
 $conn->close();
@@ -78,11 +98,12 @@ $conn->close();
                     <p>Notificações</p>
                     <img class="notification-close" src="../assets/icon/X.png" alt="">
                 </div>
+                <?php foreach ($notificacoes as $notificacao): ?>
                 <div class="notification-content">
-                    <p>12/3/2043</p>
-                    <p>Orlando Saiombo é mau eu lhe...</p>
+                    <p><?php echo $notificacao['data_da_notificacao']; ?></p>
+                    <p><?php echo $notificacao['descricao']; ?></p>
                 </div>
-                <!-- Outras notificações aqui -->
+                <?php endforeach; ?>
             </div>
             <div class="main-information">
                 <h1>Estado Geral</h1>

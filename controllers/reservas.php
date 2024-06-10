@@ -9,11 +9,20 @@ function cadastrarReservas($conn) {
     $pessoas = $conn->real_escape_string($_POST['pessoas']);
     $email = $conn->real_escape_string($_POST['email']);
 
-    // Monta a query SQL
-    $sql = "INSERT INTO reservas (nome_completo, data_da_reserva, hora, total_de_pessoas, email) VALUES ('$nome', '$data', '$hora', '$pessoas', '$email')";
+    // Monta a query SQL para inserir a reserva
+    $sql = "INSERT INTO reservas (nome_completo, data_da_reserva, hora, total_de_pessoas, email) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sssis", $nome, $data, $hora, $pessoas, $email);
 
     // Executa a query e verifica o resultado
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
+        // Insere uma notificação sobre a nova reserva
+        $descricao = "Nova reserva recebida de $nome no dia $data às $hora para $pessoas pessoas.";
+        $sql_notificacao = "INSERT INTO notificacoes (descricao) VALUES (?)";
+        $stmt_notificacao = $conn->prepare($sql_notificacao);
+        $stmt_notificacao->bind_param("s", $descricao);
+        $stmt_notificacao->execute();
+
         include '../public/pages/cadastro.php';
     } else {
         echo "Erro: " . $sql . "<br>" . $conn->error;
@@ -41,7 +50,7 @@ function apagarReserva($conn, $id_reserva) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id_reserva);
 
-    if ($stmt->execute() === TRUE) {
+    if ($stmt->execute()) {
         echo "Reserva apagada com sucesso!";
     } else {
         echo "Erro ao apagar a reserva: " . $conn->error;
@@ -54,7 +63,7 @@ function editarReserva($conn, $id_reserva) {
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id_reserva);
 
-    if ($stmt->execute() === TRUE) {
+    if ($stmt->execute()) {
         echo "Atributo 'atendido' marcado como 1 para a reserva com ID $id_reserva.";
     } else {
         echo "Erro ao marcar o atributo 'atendido': " . $conn->error;

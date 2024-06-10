@@ -1,7 +1,6 @@
 <?php
 include '../config/conection.php';
 
-
 function cadastrarContatos($conn) {
     // Sanitiza e coleta os dados do formulário
     $nome = $_POST['nome'];
@@ -9,11 +8,18 @@ function cadastrarContatos($conn) {
     $mensagem = $_POST['mensagem'];
 
     // Monta a query SQL
-    $sql = "INSERT INTO contatos (nome, email, mensagem) VALUES ('$nome', '$mensagem','$email')";
-    $sql2 = "INSERT INTO notificacoes (descricao) VALUES ('Novo contacto recebido do email '+$email)";
-   // $conn->query($sql2);
-    // Executa a query e verifica o resultado
-    if ($conn->query($sql) === TRUE) {
+    $sql = "INSERT INTO contatos (nome, email, mensagem) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sss", $nome, $email, $mensagem);
+
+    if ($stmt->execute()) {
+        // Adiciona notificação
+        $descricao = "Novo contato recebido do email " . $email;
+        $sql2 = "INSERT INTO notificacoes (descricao) VALUES (?)";
+        $stmt2 = $conn->prepare($sql2);
+        $stmt2->bind_param("s", $descricao);
+        $stmt2->execute();
+
         include '../public/pages/cadastro.php';
     } else {
         echo "Erro: " . $sql . "<br>" . $conn->error;
@@ -36,15 +42,13 @@ function obterTodosContatos($conn) {
     echo json_encode($contatos);
 }
 
-
-
 function apagarContato($conn, $id_contato) {
     // Preparar e executar a query de exclusão
     $sql = "DELETE FROM contatos WHERE id_contato = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id_contato);
 
-    if ($stmt->execute() === TRUE) {
+    if ($stmt->execute()) {
         echo "Contato apagado com sucesso!";
         exit(); // Encerra a execução após a exclusão
     } else {
@@ -53,7 +57,6 @@ function apagarContato($conn, $id_contato) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    
     obterTodosContatos($conn);
 }
 

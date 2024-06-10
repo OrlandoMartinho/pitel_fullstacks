@@ -69,24 +69,28 @@ form{
     display: flex;
     flex-direction: column;
 }
-form input{
+form input[type="email"],
+form input[type="password"] {
     outline: none;
-    padding:0 1rem;
+    padding: 0 1rem;
     border: 2px solid var(--color-primary);
     border-radius: .9rem;
     height: 4rem;
 }
 
+
+
 form input:nth-child(2){
     margin: 4rem 0;
 }
 
-form button{
+form .btn{
     border: none;
     border-radius: .9rem;
     background-color: var(--color-primary);
     color: var(--color-text);
     height: 4rem;
+    cursor: pointer;
 }
 a{
     color: var(--color-text);

@@ -31,24 +31,9 @@ function obterTodosContatos($conn) {
         }
     }
 
-    // Cria o documento XML
-    $xml = new SimpleXMLElement('<contatos/>');
-
-    foreach ($contatos as $contato) {
-        $contatoNode = $xml->addChild('contato');
-        $contatoNode->addChild('nome', $contato['nome']);
-        $contatoNode->addChild('email', $contato['email']);
-        $contatoNode->addChild('mensagem', $contato['mensagem']);
-    }
-
-    // Converte o XML para string
-    $xmlString = $xml->asXML();
-
-    // Para depuração, escreva o XML em um arquivo
-    file_put_contents('/tmp/debug.xml', $xmlString);
-
-    header('Content-Type: application/xml');
-    echo $xmlString;
+    // Define o cabeçalho Content-Type para JSON
+    header('Content-Type: application/json');
+    echo json_encode($contatos);
 }
 
 
@@ -68,6 +53,7 @@ function apagarContato($conn, $id_contato) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    
     obterTodosContatos($conn);
 }
 

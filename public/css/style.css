@@ -334,6 +334,12 @@ h3::before{
     height: 3rem;
     outline: none;
 }
+.contacts-form textarea{
+    height: 8rem;
+    border-radius: var(--border-default);
+    padding: 1rem;
+}
+
 
 .description input{
     height: 8rem;

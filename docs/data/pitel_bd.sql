@@ -32,8 +32,7 @@ CREATE TABLE `contatos` (
   `nome` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `mensagem` varchar(255) DEFAULT NULL,
-  `data_do_contato` datetime DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL
+  `data_do_contato` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -45,8 +44,7 @@ CREATE TABLE `contatos` (
 CREATE TABLE `notificacoes` (
   `id_notificacao` int(11) NOT NULL,
   `descricao` varchar(255) DEFAULT NULL,
-  `data_da_notificacao` varchar(45) DEFAULT NULL,
-  `id_usuario` int(11) NOT NULL
+  `data_da_notificacao` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -62,8 +60,7 @@ CREATE TABLE `reservas` (
   `hora` time DEFAULT NULL,
   `total_de_pessoas` int(11) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `atendido` int(11) DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL
+  `atendido` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------

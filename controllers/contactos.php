@@ -1,19 +1,71 @@
 <?php
 include '../config/conection.php';
 
-// Exemplo de consulta ao banco de dados
-$sql = "SELECT * FROM contatos";
-$result = $conn->query($sql);
+function cadastrarContatos($conn) {
+    // Sanitiza e coleta os dados do formulário
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $mensagem = $_POST['mensagem'];
 
-if ($result->num_rows > 0) {
-    // Saída dos dados de cada linha
-    while($row = $result->fetch_assoc()) {
-        echo "ID: " . $row["id"]. " - Nome: " . $row["nome"]. "<br>";
+    // Monta a query SQL
+    $sql = "INSERT INTO contatos (nome, email, mensagem) VALUES ('$nome', '$mensagem','$email')";
+
+    // Executa a query e verifica o resultado
+    if ($conn->query($sql) === TRUE) {
+        include '../public/pages/cadastro.php';
+    } else {
+        echo "Erro: " . $sql . "<br>" . $conn->error;
     }
-} else {
-    echo "0 resultados";
 }
 
-// Fechar a conexão
+function obterTodosContatos($conn) {
+    $sql = "SELECT * FROM contatos";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        $contatos = [];
+        while($row = $result->fetch_assoc()) {
+            $contatos[] = $row;
+        }
+        return $contatos;
+    } else {
+        return [];
+    }
+}
+
+function apagarContato($conn, $id_contato) {
+    // Preparar e executar a query de exclusão
+    $sql = "DELETE FROM contatos WHERE id_contato = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id_contato);
+
+    if ($stmt->execute() === TRUE) {
+        echo "Contato apagado com sucesso!";
+        exit(); // Encerra a execução após a exclusão
+    } else {
+        echo "Erro ao apagar o contato: " . $conn->error;
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    obterTodosContatos($conn);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    cadastrarContatos($conn);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+    // Obter os dados do corpo da solicitação
+    parse_str(file_get_contents("php://input"), $_DELETE);
+    // Verificar se foi fornecido um ID válido
+    if (isset($_DELETE['id_contato']) && is_numeric($_DELETE['id_contato'])) {
+        // Chama a função para apagar o contato
+        apagarContato($conn, $_DELETE['id_contato']);
+    } else {
+        echo "ID de contato inválido.";
+    } 
+}
+
 $conn->close();
 ?>

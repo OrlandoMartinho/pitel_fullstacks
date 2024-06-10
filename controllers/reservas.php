@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
         apagarReserva($conn, $_DELETE['id_reserva']);
     } else {
         echo "ID de reserva inválido.";
-    }
+    } 
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "PUT") {

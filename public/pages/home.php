@@ -71,6 +71,15 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 <h1>Estado Geral</h1>
             </div>
 
+            <?php 
+              
+            
+            
+            
+            ?>
+
+
+
           
 
             

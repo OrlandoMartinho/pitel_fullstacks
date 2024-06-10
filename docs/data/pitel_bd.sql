@@ -38,7 +38,7 @@ CREATE TABLE `contatos` (
   `nome` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `mensagem` varchar(255) DEFAULT NULL,
-  `data_do_contato` datetime DEFAULT NULL
+  `data_do_contato` datetime DEFAULT current_timestamp()	
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------

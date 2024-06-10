@@ -15,10 +15,10 @@ html{
     --color-secondary:#211D1D;
     --color-text:#fff;
     --color-gray:#E5E5E5;
-    --border-default:.9rem;
+    --border-default:.5rem;
 }
 .logo img{
-    width: 6rem;
+    width: 5rem;
 }
 header{
     padding: 1rem 4rem;
@@ -36,7 +36,7 @@ nav ul{
     display: flex;
 }
 nav ul li {
-    padding: 2rem;
+    padding: 1rem;
 }
 nav ul li a {
     color: var(--color-secondary);
@@ -45,7 +45,7 @@ nav ul li a {
 
 .btn-header{
     z-index: -1;
-    padding: 1rem 2rem;
+    padding: 0.6rem 1rem;
     color: var(--color-text);
     background-color: var(--color-primary);
     border-radius: var(--border-default);
@@ -75,15 +75,19 @@ nav ul li a {
     padding-right: 8rem;
 }
 .information-img img{
-    width: 48rem;
-    height: 33rem;
+    width: 30rem;
+    margin-left: -100px;
+    margin-top: 0vh;
+    position: absolute;
+  
 }
 .information-hero{
     padding-left: 16rem;
     display: flex;
     flex-direction: column;
-    justify-content: end;
+   
     font-size: 1.4rem;
+    margin-left: -670px;
 }
 .information-hero h2{
     font-weight: 100;

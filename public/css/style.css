@@ -22,12 +22,13 @@ html{
 }
 header{
     padding: 1rem 4rem;
-    z-index: 999999;
+    z-index: 10;
     position: fixed;
     width: 100%;
     background-color: var(--color-text);
 }
 nav{
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,25 +45,25 @@ nav ul li a {
 
 
 .btn-header{
-    z-index: -1;
+    z-index: 100;
     padding: 0.6rem 1rem;
     color: var(--color-text);
     background-color: var(--color-primary);
     border-radius: var(--border-default);
 }
 .hero::before{
-    z-index: -11;
+    z-index: 9;
     content: '';
-    background:url(../assets/img/header-background.png);
+    background:url(../assets/img/Grupo\ 76.png);
     background-size: cover;
     background-repeat: no-repeat;
-    width: 90rem;
-    height: 80rem;
+    width: 50vw;
     position: absolute;
-    top:-24rem ;
-    right: -50rem;
+  
+    
 }
 .hero{
+    z-index: 7;
     position: relative;
     padding: 0 6rem;
     height: 100vh;
@@ -75,13 +76,34 @@ nav ul li a {
     padding-right: 8rem;
 }
 .information-img img{
+
     width: 30rem;
-    margin-left: -100px;
-    margin-top: 0vh;
+    z-index: 10;
+    margin-left: 150px;
+    margin-top: -40vh;
     position: absolute;
   
 }
+
+.elipse1 img{
+    width: 20px;
+}
+
+.onda img{
+    width: 40px;
+    position: absolute;
+    margin-left: -45vw;
+    margin-top: -12vh;
+}
+
+.elipse2 img{
+    width: 20px;
+    position: absolute;
+    margin-top: -20vh;
+    margin-left: 50px;
+}
 .information-hero{
+    z-index: 7;
     padding-left: 16rem;
     display: flex;
     flex-direction: column;
@@ -90,20 +112,24 @@ nav ul li a {
     margin-left: -670px;
 }
 .information-hero h2{
+    z-index: 7;
     font-weight: 100;
     margin: 2rem 0;
 }
 .information-hero span{
+    z-index: 7;
     color: var(--color-primary);
 }
 .cards{
+    z-index: 7;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2rem;
 }
 .card{
+    z-index: 7;
     margin-top: 2rem;
-    width: 13rem;
+    width: 10rem;
     align-items: center;
     place-items: center;
     border-radius: var(--border-default);
@@ -113,11 +139,12 @@ nav ul li a {
 .card p{
     text-align: center;
     padding-top: 1rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 .card img{
     display: block;
     margin: 0 auto;
+    width: 30px;
 }
 .line{
     position: absolute;

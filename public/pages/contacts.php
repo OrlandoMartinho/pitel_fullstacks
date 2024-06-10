@@ -8,7 +8,59 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
+// Função para conectar ao banco de dados
+function conectarAoBanco() {
+    $servername = "localhost";  
+    $username = "root";         
+    $password = "";             
+    $dbname = "pitel_bd";  
 
+    return new mysqli($servername, $username, $password, $dbname);
+}
+
+// Função para obter o total de reservas
+function obterTotalReservas($conn) {
+    $sql = "SELECT COUNT(*) as total FROM reservas";
+    $result = $conn->query($sql);
+    return $result->fetch_assoc()['total'];
+}
+
+// Função para obter o total de contatos
+function obterTotalContatos($conn) {
+    $sql = "SELECT COUNT(*) as total FROM contatos";
+    $result = $conn->query($sql);
+    return $result->fetch_assoc()['total'];
+}
+
+// Função para obter todas as notificações
+function obterTodasNotificacoes($conn) {
+    $sql = "SELECT * FROM notificacoes";
+    $result = $conn->query($sql);
+    $notificacoes = [];
+
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $notificacoes[] = $row;
+        }
+    }
+
+    return $notificacoes;
+}
+
+// Conectar ao banco de dados
+$conn = conectarAoBanco();
+
+// Obter o total de reservas
+$totalReservas = obterTotalReservas($conn);
+
+// Obter o total de contatos
+$totalContatos = obterTotalContatos($conn);
+
+// Obter todas as notificações
+$notificacoes = obterTodasNotificacoes($conn);
+
+// Fechar a conexão
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -49,26 +101,12 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                     <p>Notificações</p>
                     <img class="notification-close" src="../assets/icon/X.png" alt="">
                 </div>
+                <?php foreach ($notificacoes as $notificacao): ?>
                 <div class="notification-content">
-                    <p>12/3/2043</p>
-                    <p>Orlando Saiombo é mau eu lhe...</p>
+                    <p><?php echo $notificacao['data_da_notificacao']; ?></p>
+                    <p><?php echo $notificacao['descricao']; ?></p>
                 </div>
-                <div class="notification-content">
-                    <p>12/3/2043</p>
-                    <p>Orlando Saiombo é mau eu lhe...</p>
-                </div>
-                <div class="notification-content">
-                    <p>12/3/2043</p>
-                    <p>Orlando Saiombo é mau eu lhe...</p>
-                </div>
-                <div class="notification-content">
-                    <p>12/3/2043</p>
-                    <p>Orlando Saiombo é mau eu lhe...</p>
-                </div>
-                <div class="notification-content">
-                    <p>12/3/2043</p>
-                    <p>Orlando Saiombo é mau eu lhe...</p>
-                </div>
+                <?php endforeach; ?>
             </div>
             <div class="main-information">
                 <h1>Contactos</h1>

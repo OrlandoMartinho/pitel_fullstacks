@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Login bem-sucedido, definir variáveis de sessão e redirecionar
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $email;
-            header("Location: ../public/pages/home.html");
+            header("Location: ../public/pages/home.php");
             exit();
         } else {
             echo "Email de usuário ou senha incorretos. Por favor, tente novamente.";

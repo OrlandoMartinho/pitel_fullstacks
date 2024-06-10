@@ -70,6 +70,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             <div class="main-information">
                 <h1>Estado Geral</h1>
             </div>
+
+          
+
+            
             <div class="cards">
                 <div class="card">
                     <p class="color-card">10</p>
@@ -87,6 +91,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </div>
     </div>
     <script src="../js/home.js"></script>
+    <script src="../api/index.js"></script>
 </body>
 <script>
     window.addEventListener('load', function() {

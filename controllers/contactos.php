@@ -1,6 +1,7 @@
 <?php
 include '../config/conection.php';
 
+
 function cadastrarContatos($conn) {
     // Sanitiza e coleta os dados do formulário
     $nome = $_POST['nome'];
@@ -9,7 +10,8 @@ function cadastrarContatos($conn) {
 
     // Monta a query SQL
     $sql = "INSERT INTO contatos (nome, email, mensagem) VALUES ('$nome', '$mensagem','$email')";
-
+    $sql2 = "INSERT INTO notificacoes (descricao) VALUES ('Novo contacto recebido do email '+$email)";
+   // $conn->query($sql2);
     // Executa a query e verifica o resultado
     if ($conn->query($sql) === TRUE) {
         include '../public/pages/cadastro.php';
@@ -22,16 +24,34 @@ function obterTodosContatos($conn) {
     $sql = "SELECT * FROM contatos";
     $result = $conn->query($sql);
 
+    $contatos = [];
     if ($result->num_rows > 0) {
-        $contatos = [];
         while($row = $result->fetch_assoc()) {
             $contatos[] = $row;
         }
-        return $contatos;
-    } else {
-        return [];
     }
+
+    // Cria o documento XML
+    $xml = new SimpleXMLElement('<contatos/>');
+
+    foreach ($contatos as $contato) {
+        $contatoNode = $xml->addChild('contato');
+        $contatoNode->addChild('nome', $contato['nome']);
+        $contatoNode->addChild('email', $contato['email']);
+        $contatoNode->addChild('mensagem', $contato['mensagem']);
+    }
+
+    // Converte o XML para string
+    $xmlString = $xml->asXML();
+
+    // Para depuração, escreva o XML em um arquivo
+    file_put_contents('/tmp/debug.xml', $xmlString);
+
+    header('Content-Type: application/xml');
+    echo $xmlString;
 }
+
+
 
 function apagarContato($conn, $id_contato) {
     // Preparar e executar a query de exclusão

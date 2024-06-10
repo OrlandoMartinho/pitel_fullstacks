@@ -136,7 +136,7 @@
                 </div>
                 <div class="input-content">
                     <label for="pessoas">Total de pessoas</label>
-                    <input type="number" id="pessoas" name="pessoas">
+                    <input type="number" id="pessoas" name="pessoas" min="1" max="10">
                 </div>
                 <div class="input-content">
                     <label for="email">Email</label>

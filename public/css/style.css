@@ -41,7 +41,13 @@ nav ul li {
 }
 nav ul li a {
     color: var(--color-secondary);
+    transition: color 0.3s ease-in-out;
 }
+
+nav ul li a:hover {
+    color: var(--color-primary);
+}
+
 
 
 .btn-header{
@@ -84,6 +90,18 @@ nav ul li a {
     position: absolute;
   
 }
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .loader {
+    width: 200px;
+    height: 200px;
+  }
 
 .header-shadow {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

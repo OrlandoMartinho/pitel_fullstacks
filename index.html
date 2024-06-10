@@ -9,6 +9,10 @@
     <link rel="shortcut icon" href="public/assets/icon/logo.svg" type="image/x-icon">
 </head>
 <body>
+    <div class="loader-container">
+       
+        <img src="public/assets/img/loader.gif" alt="Loader" class="loader">
+      </div>
     <header>
         <nav>
             <a href="" class="logo">
@@ -208,5 +212,12 @@
         </div>
     </footer>
 </body>
+<script>
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.querySelector('.loader-container').style.display = 'none';
+      }, 500); 
+    });
+</script>
 <script src="public/js/index.js"></script>
 </html>

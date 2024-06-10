@@ -237,7 +237,7 @@ h3::before{
     display: flex;
     justify-content: space-around;
     width: 100vw;
-    height: 74vh;
+    height: 94vh;
 }
 
 .content-reservas{
@@ -265,13 +265,13 @@ h3::before{
     height: 2.6rem;
     background-color: var(--color-text);
     padding: 1rem;
-    border-radius: .9rem;
+    border-radius: .3rem;
 }
 .btn{
     border: none;
     margin-top: 2rem;
     padding: 1rem 0;
-    border-radius: .9rem;
+    border-radius: .3rem;
     color: var(--color-text);
     background-color: var(--color-primary);
     margin-left: 8rem;

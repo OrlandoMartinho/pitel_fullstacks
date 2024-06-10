@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../assets/icon/logo.png" type="image/x-icon">
-  <style>
+<style>
 
 body {
     margin: 0;
@@ -45,7 +45,7 @@ a:hover {
 
   </style>
     <title>Cadastro Realizado com Sucesso</title>
-
+    <link rel="shortcut icon" href="../assets/icon/logo.png" type="image/x-icon">
 </head>
 <body>
     <div class="container">

@@ -121,7 +121,7 @@
                    Após reservar uma mesa, ela expirará depois de 10 min do <br>
                    horário definido!</p>
             </div>
-            <form class="form">
+            <form class="form" action="controllers/reservas.php" method="POST">
                 <div class="input-content">
                     <label for="nome">Nome Completo</label>
                     <input type="text" id="nome" name="nome">

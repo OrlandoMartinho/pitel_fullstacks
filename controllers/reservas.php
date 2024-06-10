@@ -12,7 +12,7 @@ function processReservation($conn) {
     $email = $conn->real_escape_string($_POST['email']);
 
         // Monta a query SQL
-    $sql = "INSERT INTO reservas (nome, data, hora, pessoas, email) VALUES ('$nome', '$data', '$hora', '$pessoas', '$email')";
+    $sql = "INSERT INTO reservas (nome_completo,data_da_reserva,hora,total_de_pessoas,email) VALUES ('$nome', '$data', '$hora', '$pessoas', '$email')";
 
         // Executa a query e verifica o resultado
     if ($conn->query($sql) === TRUE) {

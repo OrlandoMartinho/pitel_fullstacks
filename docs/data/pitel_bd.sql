@@ -50,7 +50,7 @@ CREATE TABLE `contatos` (
 CREATE TABLE `notificacoes` (
   `id_notificacao` int(11) NOT NULL,
   `descricao` varchar(255) DEFAULT NULL,
-  `data_da_notificacao` varchar(45) DEFAULT NULL
+  `data_da_notificacao` datetime DEFAULT current_timestamp()	
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------

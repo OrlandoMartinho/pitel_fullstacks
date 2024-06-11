@@ -15,7 +15,13 @@ function conectarAoBanco() {
     $password = "";             
     $dbname = "pitel_bd";  
 
-    return new mysqli($servername, $username, $password, $dbname);
+    // Conexão
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Verificar conexão
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+    return $conn;
 }
 
 // Função para obter o total de reservas
@@ -87,7 +93,7 @@ $conn->close();
         <div class="main">
             <div class="main-header">
                 <div class="search">
-                    <input type="text" name="" id="" placeholder="Pesquisar">
+                    <input type="text" name="" id="pesquisa" placeholder="Pesquisar">
                     <img src="../assets/icon/search.png" alt="">
                 </div>
                 <div class="notification-icon">
@@ -113,11 +119,11 @@ $conn->close();
                 <table>
                     <thead>
                         <tr>
-                            <th>Nome</th>
+                            <th class="spaccing">Nome</th>
                             <th class="spaccing">Data</th>
-                            <th>Hora</th>
-                            <th>Total de pessoas</th>
-                            <th>Aprovado</th>
+                            <th class="spaccing">Hora</th>
+                            <th class="spaccing">Pessoas</th>
+                            <th class="spaccing">Aprovado</th>
                             <th class="spaccing">Email</th>
                             <th class="actions">Acção</th>
                         </tr>
@@ -132,8 +138,8 @@ $conn->close();
                             <td><?php echo $reserva['atendido']; ?></td>
                             <td><?php echo $reserva['email']; ?></td>
                             <td class="buttons">
-                                <button onclick="aprovarReserva(<?php echo $mensagem['id_contato']; ?>)">Aprovar</button>
-                                <button onclick="excluirReserva(<?php echo $mensagem['id_contato']; ?>)">Eliminar</button>
+                                <button onclick="aprovarReserva(<?php echo $reserva['id_reserva']; ?>)">Aprovar</button>
+                                <button onclick="excluirReserva(<?php echo $reserva['id_reserva']; ?>)">Eliminar</button>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -142,6 +148,31 @@ $conn->close();
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById('pesquisa').addEventListener('input', function() {
+            var filtro = this.value.toLowerCase();
+            var linhas = document.querySelectorAll('.container-table tbody tr');
+            var i=0
+            linhas.forEach(function(linha) {
+                var nome = linha.querySelector('td:nth-child(1)').innerText.toLowerCase();
+                var data = linha.querySelector('td:nth-child(2)').innerText.toLowerCase();
+                var hora = linha.querySelector('td:nth-child(3)').innerText.toLowerCase();
+                var pessoas = linha.querySelector('td:nth-child(4)').innerText.toLowerCase();
+                var aprovado = linha.querySelector('td:nth-child(5)').innerText.toLowerCase();
+                var email = linha.querySelector('td:nth-child(6)').innerText.toLowerCase();
+
+                if (nome==filtro || data==filtro || hora==filtro || pessoas==filtro || aprovado==filtro || email==filtro ||filtro == i) {
+                    linha.style.display = '';
+                }
+                else {
+                    linha.style.display = 'none';
+                }
+
+                i=i+1
+            });
+        });
+    </script>
     <script src="../js/reservations.js"></script>
 </body>
 </html>

@@ -12,7 +12,6 @@ notificationClose.addEventListener('click',()=>{
     notificationContent.classList.remove('on')
 })
 
-
 function excluirReserva(id) {
     if (confirm('Tem certeza que deseja excluir esta reserva?')) {
         // Envie uma solicitação AJAX para excluir o registro com base no ID
@@ -25,17 +24,16 @@ function excluirReserva(id) {
                 console.log(xhr.responseText);
                 // Atualize a tabela ou faça qualquer outra ação necessária
                 location.reload(); // Atualiza a página após a exclusão
+                alert("Eliminado com sucesso");
             }
         };
         xhr.send('id_reserva=' + id);
-     alert("Eliminado com sucesso")
-     
     }
 }
 
 function aprovarReserva(id) {
     if (confirm('Tem certeza que deseja aprovar esta reserva?')) {
-        // Envie uma solicitação AJAX para excluir o registro com base no ID
+        // Envie uma solicitação AJAX para aprovar o registro com base no ID
         var xhr = new XMLHttpRequest();
         xhr.open('PUT', '../../controllers/reservas.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -45,10 +43,9 @@ function aprovarReserva(id) {
                 console.log(xhr.responseText);
                 // Atualize a tabela ou faça qualquer outra ação necessária
                 location.reload(); // Atualiza a página após a exclusão
+                alert("Aprovada com sucesso");
             }
         };
         xhr.send('id_reserva=' + id);
-     alert("Aprovada com sucesso")
-     
     }
 }

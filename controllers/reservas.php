@@ -59,9 +59,9 @@ function apagarReserva($conn, $id_reserva) {
 
 function editarReserva($conn, $id_reserva) {
     // Preparar e executar a query de atualização
-    $sql = "UPDATE reservas SET atendido = "Sim" WHERE id_reserva = ?";
+    $sql = "UPDATE reservas SET atendido = ? WHERE id_reserva = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id_reserva);
+    $stmt->bind_param("i","Sim",$id_reserva);
 
     if ($stmt->execute()) {
         echo "Atributo 'atendido' marcado como 1 para a reserva com ID $id_reserva.";

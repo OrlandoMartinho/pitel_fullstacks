@@ -18,18 +18,19 @@ function conectarAoBanco() {
     return new mysqli($servername, $username, $password, $dbname);
 }
 
-// Função para obter o total de reservas
-function obterTotalReservas($conn) {
-    $sql = "SELECT COUNT(*) as total FROM reservas";
-    $result = $conn->query($sql);
-    return $result->fetch_assoc()['total'];
-}
-
 // Função para obter o total de contatos
-function obterTotalContatos($conn) {
-    $sql = "SELECT COUNT(*) as total FROM contatos";
+function obterTodosContatos($conn) {
+    $sql = "SELECT * FROM contatos";
     $result = $conn->query($sql);
-    return $result->fetch_assoc()['total'];
+    $contatos = [];
+
+    if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $contatos[] = $row;
+        }
+    }
+
+    return $contatos;
 }
 
 // Função para obter todas as notificações
@@ -50,11 +51,8 @@ function obterTodasNotificacoes($conn) {
 // Conectar ao banco de dados
 $conn = conectarAoBanco();
 
-// Obter o total de reservas
-$totalReservas = obterTotalReservas($conn);
-
 // Obter o total de contatos
-$totalContatos = obterTotalContatos($conn);
+$todosContatos = obterTodosContatos($conn);
 
 // Obter todas as notificações
 $notificacoes = obterTodasNotificacoes($conn);
@@ -89,7 +87,7 @@ $conn->close();
         <div class="main">
             <div class="main-header">
                 <div class="search">
-                    <input type="text" name="" id="" placeholder="Pesquisar">
+                    <input type="text" name="" id="pesquisa" placeholder="Pesquisar">
                     <img src="../assets/icon/search.png" alt="">
                 </div>
                 <div class="notification-icon">
@@ -112,84 +110,31 @@ $conn->close();
                 <h1>Contactos</h1>
             </div>
             <div class="messages">
-                <div class="messages-list">
-                    <div class="messages-container">
-                        <div>
-                            <p class="title-messages">srsaimbo@gmail.com</p>
-                            <p>Orlando Saiombo é mau eu lhe amo bwe...</p>
-                        </div>
-                        <span class="active"></span>
+            <div class="messages-list" slyle="width: 30vw;">
+                <?php foreach ($todosContatos as $mensagem): ?>
+                <div class="messages-container" data-email="<?php echo strtolower($mensagem['email']); ?>" data-message="<?php echo strtolower($mensagem['mensagem']); ?>" onclick="mostrarMensagem('<?php echo $mensagem['mensagem']; ?>', '<?php echo $mensagem['email']; ?>', '<?php echo $mensagem['data_do_contato']; ?>')">
+                    <div>
+                        <p class="title-messages"><?php echo $mensagem['email']; ?></p>
+                        <p><?php echo $mensagem['mensagem']; ?></p>
                     </div>
-                    <div class="messages-container">
-                        <div>
-                            <p class="title-messages">srsaimbo@gmail.com</p>
-                            <p>Orlando Saiombo é mau eu lhe amo bwe...</p>
-                        </div>
-                        <span class="active"></span>
-                    </div>
-                    <div class="messages-container">
-                        <div>
-                            <p class="title-messages">srsaimbo@gmail.com</p>
-                            <p>Orlando Saiombo é mau eu lhe amo bwe...</p>
-                        </div>
-                        <span class="active"></span>
-                    </div>
-                    <div class="messages-container">
-                        <div>
-                            <p class="title-messages">srsaimbo@gmail.com</p>
-                            <p>Orlando Saiombo é mau eu lhe amo bwe...</p>
-                        </div>
-                        <span class="active"></span>
-                    </div>
-                    <div class="messages-container">
-                        <div>
-                            <p class="title-messages">srsaimbo@gmail.com</p>
-                            <p>Orlando Saiombo é mau eu lhe amo bwe...</p>
-                        </div>
-                        <span class="active"></span>
-                    </div>
-                    <div class="messages-container">
-                        <div>
-                            <p class="title-messages">srsaimbo@gmail.com</p>
-                            <p>Orlando Saiombo é mau eu lhe amo bwe...</p>
-                        </div>
-                        <span class="active"></span>
-                    </div>                    <div class="messages-container">
-                        <div>
-                            <p class="title-messages">srsaimbo@gmail.com</p>
-                            <p>Orlando Saiombo é mau eu lhe amo bwe...</p>
-                        </div>
-                        <span class="active"></span>
-                    </div>
-
-                                        <div class="messages-container">
-                        <div>
-                            <p class="title-messages">srsaimbo@gmail.com</p>
-                            <p>Orlando Saiombo é mau eu lhe amo bwe...</p>
-                        </div>
-                        <span class="active"></span>
-                    </div>                    <div class="messages-container">
-                        <div>
-                            <p class="title-messages">srsaimbo@gmail.com</p>
-                            <p>Orlando Saiombo é mau eu lhe amo bwe...</p>
-                        </div>
-                        <span class="active"></span>
-                    </div>
+                    <span class="active"><img src="../assets/icon/icons8_delete_bin.svg" alt="" style="width: 20px;margin:5.3px;z-index: 100;" onclick="excluirContato(<?php echo $mensagem['id_contato']; ?>)" ></span>
                 </div>
+                <?php endforeach; ?>
+            </div>
+
+
                 <div class="chat">
                    <div class="container-chat">
                     
-                    
                     <div class="content">
-                        <p class="title-messages">srsaimbo@gmail.com</p>
-                        <p class="date-send-message">12/3/2043</p>
-                        <p class="messagecontent">Orlando Saiombo é mau eu lhe amo bwe</p>
+                        <p class="title-messages"></p>
+                        <p class="date-send-message"></p>
+                        <p class="messagecontent"></p>
                     </div>
 
                    </div>
                    <form action="">
                     <div>
-                      
                         <textarea name="" id=""></textarea>
                     </div>
                         <button>Enviar</button>
@@ -198,6 +143,24 @@ $conn->close();
             </div>
         </div>
     </div>
+    <script>
+    document.getElementById('pesquisa').addEventListener('input', function() {
+        var filtro = this.value.toLowerCase();
+        var containers = document.querySelectorAll('.messages-container');
+
+        containers.forEach(function(container) {
+            var email = container.getAttribute('data-email');
+            var message = container.getAttribute('data-message');
+
+            if (email.includes(filtro) || message.includes(filtro)) {
+                container.style.display = '';
+            } else {
+                container.style.display = 'none';
+            }
+        });
+    });
+</script>
+
     <script src="../js/contacts.js"></script>
 </body>
 </html>

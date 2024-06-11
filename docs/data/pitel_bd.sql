@@ -66,7 +66,7 @@ CREATE TABLE `reservas` (
   `hora` time DEFAULT NULL,
   `total_de_pessoas` int(11) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `atendido` int(11) DEFAULT 0
+  `atendido` VARCHAR(3) DEFAULT `Não`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------

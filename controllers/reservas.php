@@ -2,6 +2,12 @@
 include '../config/conection.php';
 
 function cadastrarReservas($conn) {
+    // Verifica se os dados do formulário foram enviados
+    if ($_SERVER["REQUEST_METHOD"] != "POST") {
+        // Se não forem, encerre a função
+        return;
+    }
+    
     // Sanitiza e coleta os dados do formulário
     $nome = $conn->real_escape_string($_POST['nome']);
     $data = $conn->real_escape_string($_POST['data']);
@@ -23,84 +29,77 @@ function cadastrarReservas($conn) {
         $stmt_notificacao->bind_param("s", $descricao);
         $stmt_notificacao->execute();
 
-        include '../public/pages/cadastro.php';
+        // Redireciona de volta para a página de cadastro
+        header("Location: ../public/pages/cadastro.php");
+        exit(); // Encerra a execução do script após o redirecionamento
     } else {
+        // Se ocorrer um erro, exibe uma mensagem de erro
         echo "Erro: " . $sql . "<br>" . $conn->error;
     }
 }
 
 function obterTodasReservas($conn) {
+    // Monta a query SQL para obter todas as reservas
     $sql = "SELECT * FROM reservas";
     $result = $conn->query($sql);
 
+    // Verifica se há resultados
     if ($result->num_rows > 0) {
         $reservas = [];
         while($row = $result->fetch_assoc()) {
             $reservas[] = $row;
         }
-        return $reservas;
+        return $reservas; // Retorna o array de reservas
     } else {
-        return [];
+        return []; // Retorna um array vazio se não houver reservas
     }
 }
 
-function apagarReserva($conn, $id_reserva) {
-    // Preparar e executar a query de exclusão
+function excluirReserva($conn, $id_reserva) {
+    // Monta a query SQL para excluir a reserva com o ID fornecido
     $sql = "DELETE FROM reservas WHERE id_reserva = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id_reserva);
-
-    if ($stmt->execute()) {
-        echo "Reserva apagada com sucesso!";
-    } else {
-        echo "Erro ao apagar a reserva: " . $conn->error;
-    }
+    
+    // Executa a query e retorna true se for bem-sucedida, ou false se houver erro
+    return $stmt->execute();
 }
 
 function editarReserva($conn, $id_reserva) {
-    // Preparar e executar a query de atualização
+    // Monta a query SQL para marcar a reserva como atendida
     $sql = "UPDATE reservas SET atendido = ? WHERE id_reserva = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i","Sim",$id_reserva);
-
-    if ($stmt->execute()) {
-        echo "Atributo 'atendido' marcado como 1 para a reserva com ID $id_reserva.";
-    } else {
-        echo "Erro ao marcar o atributo 'atendido': " . $conn->error;
-    }
+    
+    // Executa a query e retorna true se for bem-sucedida, ou false se houver erro
+    return $stmt->execute();
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    obterTodasReservas($conn);
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Verifica o método da requisição HTTP
+if ($_SERVER["REQUEST_METHOD"] === "GET") {
+    // Se for GET, obtém todas as reservas
+    $reservas = obterTodasReservas($conn);
+    // Retorna os dados em formato JSON
+    echo json_encode($reservas);
+} elseif ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Se for POST, cadastra uma nova reserva
     cadastrarReservas($conn);
+} elseif ($_SERVER["REQUEST_METHOD"] === "DELETE") {
+    // Se for DELETE, exclui a reserva com o ID fornecido
+    parse_str(file_get_contents("php://input"), $data);
+    $id_reserva = $data['id_reserva'];
+    $resultado = excluirReserva($conn, $id_reserva);
+    // Retorna o resultado da operação em formato JSON
+    echo json_encode(["success" => $resultado]);
+} elseif ($_SERVER["REQUEST_METHOD"] === "PUT") {
+    // Se for PUT, marca a reserva com o ID fornecido como atendida
+    parse_str(file_get_contents("php://input"), $data);
+    $id_reserva = $data['id_reserva'];
+    $resultado = editarReserva($conn, $id_reserva);
+    // Retorna o resultado da operação em formato JSON
+    echo json_encode(["success" => $resultado]);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
-    // Obter os dados do corpo da solicitação
-    parse_str(file_get_contents("php://input"), $_DELETE);
-    // Verificar se foi fornecido um ID válido
-    if (isset($_DELETE['id_reserva']) && is_numeric($_DELETE['id_reserva'])) {
-        // Chama a função para apagar a reserva
-        apagarReserva($conn, $_DELETE['id_reserva']);
-    } else {
-        echo "ID de reserva inválido.";
-    } 
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "PUT") {
-    // Obter os dados do corpo da solicitação
-    parse_str(file_get_contents("php://input"), $_PUT);
-    // Verificar se foi fornecido um ID válido
-    if (isset($_PUT['id_reserva']) && is_numeric($_PUT['id_reserva'])) {
-        // Chama a função para editar a reserva
-        editarReserva($conn, $_PUT['id_reserva']);
-    } else {
-        echo "ID de reserva inválido.";
-    }
-}
-
+// Fecha a conexão com o banco de dados
 $conn->close();
 ?>

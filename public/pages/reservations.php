@@ -172,6 +172,45 @@ $conn->close();
                 i=i+1
             });
         });
+
+        function excluirReserva(id) {
+    if (confirm('Tem certeza que deseja excluir esta reserva?')) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('DELETE', '../../controllers/reservas.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            alert(xhr.status == 200)
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Resposta recebida do arquivo excluir_contato.php
+                console.log(xhr.responseText);
+                // Atualize a tabela ou faça qualquer outra ação necessária
+                location.reload(); // Atualiza a página após a exclusão
+                alert("Eliminado com sucesso");
+            }
+        };
+        xhr.send('id_reserva=' + id);
+    }
+}
+
+function aprovarReserva(id) {
+    if (confirm('Tem certeza que deseja aprovar esta reserva?')) {
+        // Envie uma solicitação AJAX para aprovar o registro com base no ID
+        var xhr = new XMLHttpRequest();
+        xhr.open('PUT', '../../controllers/reservas.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Resposta recebida do arquivo excluir_contato.php
+                console.log(xhr.responseText);
+                // Atualize a tabela ou faça qualquer outra ação necessária
+                // Atualiza a página após a exclusão
+                alert("Aprovada com sucesso");
+            }
+        };
+        xhr.send('id_reserva=' + id);
+    }
+}
+
     </script>
     <script src="../js/reservations.js"></script>
 </body>

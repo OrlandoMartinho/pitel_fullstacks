@@ -187,4 +187,5 @@ tbody button:nth-child(2){
     display: flex;
     justify-content: end;
     gap: 2rem;
+    cursor: pointer;
 }

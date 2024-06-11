@@ -59,7 +59,7 @@ function apagarReserva($conn, $id_reserva) {
 
 function editarReserva($conn, $id_reserva) {
     // Preparar e executar a query de atualização
-    $sql = "UPDATE reservas SET atendido = 1 WHERE id_reserva = ?";
+    $sql = "UPDATE reservas SET atendido = "Sim" WHERE id_reserva = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $id_reserva);
 

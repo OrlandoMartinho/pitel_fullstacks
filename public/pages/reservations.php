@@ -116,7 +116,8 @@ $conn->close();
                             <th>Nome</th>
                             <th class="spaccing">Data</th>
                             <th>Hora</th>
-                            <th>Total</th>
+                            <th>Total de pessoas</th>
+                            <th>Aprovado</th>
                             <th class="spaccing">Email</th>
                             <th class="actions">Acção</th>
                         </tr>
@@ -128,10 +129,11 @@ $conn->close();
                             <td><?php echo $reserva['data_da_reserva']; ?></td>
                             <td><?php echo $reserva['hora']; ?></td>
                             <td><?php echo $reserva['total_de_pessoas']; ?></td>
+                            <td><?php echo $reserva['atendido']; ?></td>
                             <td><?php echo $reserva['email']; ?></td>
                             <td class="buttons">
-                                <button>Aprovar</button>
-                                <button>Eliminar</button>
+                                <button onclick="aprovarReserva(<?php echo $mensagem['id_contato']; ?>)">Aprovar</button>
+                                <button onclick="excluirReserva(<?php echo $mensagem['id_contato']; ?>)">Eliminar</button>
                             </td>
                         </tr>
                         <?php endforeach; ?>

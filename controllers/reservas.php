@@ -69,7 +69,8 @@ function editarReserva($conn, $id_reserva) {
     // Monta a query SQL para marcar a reserva como atendida
     $sql = "UPDATE reservas SET atendido = ? WHERE id_reserva = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i","Sim",$id_reserva);
+    $aprovacao="Sim";
+    $stmt->bind_param("si",$aprovacao,$id_reserva);
     
     // Executa a query e retorna true se for bem-sucedida, ou false se houver erro
     return $stmt->execute();

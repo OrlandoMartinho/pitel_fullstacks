@@ -45,15 +45,16 @@ function mostrarMensagem(mensagem,email,data_do_contato){
 document.getElementById('pesquisa').addEventListener('input', function() {
     var filtro = this.value.toLowerCase();
     var containers = document.querySelectorAll('.messages-container');
-
+    var i=0
     containers.forEach(function(container) {
         var email = container.getAttribute('data-email');
         var message = container.getAttribute('data-message');
 
-        if (email.includes(filtro) || message.includes(filtro)) {
+        if (email.includes(filtro) || message.includes(filtro)||filtro == i) {
             container.style.display = '';
         } else {
             container.style.display = 'none';
         }
+        i=i+1
     });
 });
